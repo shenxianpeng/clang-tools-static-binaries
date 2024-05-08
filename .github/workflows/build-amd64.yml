@@ -5,6 +5,10 @@ on:
     branches: [ master ]
     paths:
       - ".github/workflows/build-amd64.yml"
+  pull_request:
+    branches: [ master ]
+    paths:
+      - ".github/workflows/build-amd64.yml"
   workflow_dispatch:
 
 jobs:
@@ -70,7 +74,7 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
     env:
       COMMON_CMAKE_ARGS: '-DBUILD_SHARED_LIBS=OFF -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra"'
-      POSIX_CMAKE_ARGS: '-DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_CXX_COMPILER=g++-10 -DCMAKE_C_COMPILER=gcc-10'
+      POSIX_CMAKE_ARGS: '-DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_CXX_COMPILER=g++-11 -DCMAKE_C_COMPILER=gcc-11'
       RELEASE: '${{ matrix.release }}'
       suffix: '${{ matrix.clang-version }}_${{ matrix.os }}-amd64'
     steps:
@@ -122,7 +126,7 @@ jobs:
     - name: patch cmake implicit link libraries on macosx
       if: ${{ matrix.os == 'macosx' }}
       shell: bash
-      run: sed -i.backup 's/gcc_eh.\*|/gcc_eh.*|gcc_ext.*|/g' $(find /usr/local/Cellar -name CMakeParseImplicitLinkInfo.cmake)
+      run: sed -i.backup 's/gcc_eh.\*|/gcc_eh.*|gcc_ext.*|/g' $(find /opt/homebrew/Cellar -name CMakeParseImplicitLinkInfo.cmake)
     - name: cmake
       run: cmake -S ${{ matrix.release }}/llvm -B ${{ matrix.release }}/build ${{ env.COMMON_CMAKE_ARGS }} ${{ matrix.os-cmake-args }} ${{ matrix.extra-cmake-args }}
     - name: build
@@ -151,6 +155,7 @@ jobs:
         cat clang-tidy-${{ env.suffix }}.sha512sum
         cat clang-apply-replacements-${{ env.suffix }}.sha512sum
     - name: upload artifacts
+      if: ${{ github.actor != 'dependabot[bot]' }} || github.event_name != 'pull_request'
       uses: actions/upload-artifact@v3
       with:
         name: clang-tools
@@ -158,7 +163,7 @@ jobs:
         retention-days: 1
   draft-release:
     runs-on: ubuntu-22.04
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    if: ${{ github.actor != 'dependabot[bot]' }} || github.event_name != 'pull_request'
     needs: build
     steps:
       - name: download artifacts
