@@ -12,11 +12,7 @@ The supported versions are as follows:
 |-----------|---|---|---|---|---|---|---|---|---|---|---|---|
 |Linux 64   |✔️ |✔️|✔️|✔️ |✔️|✔️ |✔️ |✔️|✔️| ✔️|✔️|✔️ |    
 |Window 64  |✔️ |✔️|✔️|✔️ |✔️|✔️ |✔️ |✔️|✔️| ✔️|✔️|✔️ |
-|macOS 64   |❌ |❌|❌|❌ |❌|✔️ |✔️ |✔️|✔️| ✔️|✔️|✔️ |
-
-> [!CAUTION]
-> Known issues:
-> * static binaries failed on macOS from version 14~18 ([#26](https://github.com/cpp-linter/clang-tools-static-binaries/issues/26))
+|macOS 64   |✔️ |✔️|✔️|✔️ |✔️|✔️ |✔️ |✔️|✔️| ✔️|✔️|✔️ |
 
 ## Download
 
