@@ -14,6 +14,11 @@ The supported versions are as follows:
 |Window 64  |✔️|✔️ |✔️|✔️|✔️ |✔️|✔️ |✔️ |✔️|✔️| ✔️|✔️|✔️ |
 |macOS 64   |✔️|✔️ |✔️|✔️|✔️ |✔️|✔️ |✔️ |✔️|✔️| ✔️|✔️|✔️ |
 
+> [!CAUTION]
+> clang-tidy v18+ not working or unavailable.
+> * clang-tidy-18_macosx-amd64 - Reason: tried: '/usr/lib/libz.1.dylib' (no such file)
+> * clang-tidy-19_macosx-amd64 - File size exceeds 2GB, unable to upload to GitHub releases.
+
 ## Download
 
 Grab clang-tools static binaries for your platform from [Releases](https://github.com/cpp-linter/clang-tools-static-binaries/releases) tab!
