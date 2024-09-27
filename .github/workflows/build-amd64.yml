@@ -186,6 +186,6 @@ jobs:
         run: |
           branch_name=`git branch --show-current`
           commit_hash=`git rev-parse --short HEAD`
-          new_tag=$branch_name-$commit_has
+          new_tag=$branch_name-$commit_hash
           files=`ls -laR .`
-          gh release upload $new_branch $files
+          gh release upload $new_tag $files
