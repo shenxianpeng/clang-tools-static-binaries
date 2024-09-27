@@ -183,9 +183,9 @@ jobs:
       - name: list files
         run: ls -laR .
       - name: draft release
-        uses: xresloader/upload-to-github-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          file: "clang-*"
+          files: "clang-*"
           draft: true
