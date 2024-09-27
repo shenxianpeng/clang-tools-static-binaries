@@ -20,8 +20,9 @@ jobs:
     runs-on: ubuntu-20.04
     if: ${{ github.actor != 'dependabot[bot]' }} || github.event_name != 'pull_request'
     steps:
-      - name: checkout
-        uses: action/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: gh release upload
         run: |
           branch_name=`git branch --show-current`
