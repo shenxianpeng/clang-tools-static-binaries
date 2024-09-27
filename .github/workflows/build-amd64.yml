@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        clang-version: [ 19, 18, 17, 16, 15, 14, 13, 12.0.1, 12, 11, 10, 9, 8, 7 ]
+        clang-version: [ 19]
         os: [ linux, macosx, windows ]
         include:
           - clang-version: 19
@@ -182,10 +182,10 @@ jobs:
           name: clang-tools
       - name: list files
         run: ls -laR .
-      - name: draft release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          files: "clang-*"
-          draft: true
+      - name: gh release upload
+        run: |
+          branch_name=`git branch --show-current`
+          commit_hash=`git rev-parse --short HEAD`
+          new_tag=$branch_name-$commit_has
+          files=`ls -laR .`
+          gh release upload $new_branch $files
